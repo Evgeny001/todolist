@@ -1,4 +1,5 @@
 import {TasksType} from "./App";
+import {Button} from "./Button";
 
 type PropsType = {
     title: string
@@ -29,9 +30,9 @@ export const Todolist = (props: PropsType) => {
             </ul>
             ) }
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <Button title={'All'} />
+                <Button title={'Active'} />
+                <Button title={'Completed'} />
             </div>
             <div>{date}</div>
         </div>
