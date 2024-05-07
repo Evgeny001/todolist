@@ -1,6 +1,6 @@
 import {FilterValuesType, TaskType} from "./App";
 import {Button} from "./Button";
-import { useState} from "react";
+import {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type PropsType = {
     title: string
@@ -17,33 +17,44 @@ export const Todolist = (props: PropsType) => {
         addTask(taskTitle)
         setTaskTitle('')
     }
+    const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTaskTitle(e.currentTarget.value)
+    }
+    const addTaskOnKeyUpHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTaskHandler()
+        }
+    }
+    const changeFilterTasksHandler = (filter: FilterValuesType) => {
+        changeFilter(filter)
+    }
     return (
         <div>
             <h3>{title}</h3>
             <div>
                 <input value={taskTitle}
-                    onChange={e => setTaskTitle(e.currentTarget.value)}
-                       onKeyUp={e=>{
-                           if(e.key === 'Enter'){
-                               addTaskHandler()
-                       }}}/>
+                    onChange={changeTaskTitleHandler}
+                       onKeyUp={addTaskOnKeyUpHandler}/>
                <Button title={'+'}
                        onClick={addTaskHandler}/>
             </div>
             <ul>
                 {tasks.map(task => {
+                    const removeTaskHandler = () => {
+                        removeTask(task.id)
+                    }
                     return (
                         <li key={task.id}>
-                           <Button title={'X'} onClick={()=>removeTask(task.id)}/>
+                           <Button title={'X'} onClick={removeTaskHandler}/>
                             <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
                         </li>
                     )
                 })}
             </ul>
             <div>
-                <Button title={'All'} onClick={()=>changeFilter('all')} />
-                <Button title={'Active'} onClick={()=>changeFilter('active')} />
-                <Button title={'Completed'} onClick={()=>changeFilter('completed')} />
+                <Button title={'All'} onClick={() => changeFilterTasksHandler('all')} />
+                <Button title={'Active'} onClick={() => changeFilterTasksHandler('active')} />
+                <Button title={'Completed'} onClick={() => changeFilterTasksHandler('completed')} />
             </div>
             <div>{date}</div>
         </div>
