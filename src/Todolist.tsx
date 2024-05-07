@@ -15,8 +15,10 @@ export const Todolist = (props: PropsType) => {
     const {title, tasks, date, removeTask, changeFilter, addTask, changeTaskStatus} = props
     const [taskTitle, setTaskTitle] = useState<string>('')
     const addTaskHandler = () => {
-        addTask(taskTitle)
-        setTaskTitle('')
+        if(taskTitle.trim() !== ''){
+            addTask(taskTitle.trim())
+            setTaskTitle('')
+        }
     }
     const changeTaskTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTaskTitle(e.currentTarget.value)
