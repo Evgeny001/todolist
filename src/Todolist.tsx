@@ -7,15 +7,16 @@ type PropsType = {
     date?: string
     removeTask: (taskId: string) => void
     changeFilter: (filter: FilterValuesType) => void
+    addTask: () => void
 }
 export const Todolist = (props: PropsType) => {
-    const {title, tasks, date, removeTask, changeFilter} = props
+    const {title, tasks, date, removeTask, changeFilter, addTask} = props
     return (
         <div>
             <h3>{title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+               <Button title={'+'} onClick={addTask}/>
             </div>
             <ul>
                 {tasks.map(task => {
