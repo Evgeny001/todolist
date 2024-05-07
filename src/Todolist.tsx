@@ -22,7 +22,11 @@ export const Todolist = (props: PropsType) => {
             <h3>{title}</h3>
             <div>
                 <input value={taskTitle}
-                    onChange={e => setTaskTitle(e.currentTarget.value)}/>
+                    onChange={e => setTaskTitle(e.currentTarget.value)}
+                       onKeyUp={e=>{
+                           if(e.key === 'Enter'){
+                               addTaskHandler()
+                       }}}/>
                <Button title={'+'}
                        onClick={addTaskHandler}/>
             </div>
