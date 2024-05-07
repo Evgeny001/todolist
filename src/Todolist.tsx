@@ -1,13 +1,14 @@
-import {TasksType} from "./App";
+import {TaskType} from "./App";
 import {Button} from "./Button";
 
 type PropsType = {
     title: string
-    tasks: TasksType[]
+    tasks: TaskType[]
     date?: string
+    removeTask: (taskId: number) => void
 }
 export const Todolist = (props: PropsType) => {
-    const {title, tasks, date} = props
+    const {title, tasks, date, removeTask} = props
     return (
         <div>
             <h3>{title}</h3>
@@ -19,6 +20,7 @@ export const Todolist = (props: PropsType) => {
                 {tasks.map(task => {
                     return (
                         <li key={task.id}>
+                           <Button title={'X'} onClick={()=>removeTask(task.id)}/>
                             <input type="checkbox" checked={task.isDone}/> <span>{task.title}</span>
                         </li>
                     )
