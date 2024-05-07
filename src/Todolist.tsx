@@ -1,27 +1,35 @@
-export const Todolist = () => {
+import {TasksType} from "./App";
+
+type PropsType = {
+    title: string
+    tasks: TasksType[]
+    date?: string
+}
+export const Todolist = (props: PropsType) => {
+    const {title, tasks, date} = props
     return (
         <div>
-            <h3>What to learn</h3>
+            <h3>{title}</h3>
             <div>
-                <input />
+                <input/>
                 <button>+</button>
             </div>
             <ul>
-                <li>
-                    <input type="checkbox" checked={true} /> <span>HTML&CSS</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={true} /> <span>JS</span>
-                </li>
-                <li>
-                    <input type="checkbox" checked={false} /> <span>React</span>
-                </li>
+                {tasks.map(task => {
+                    return (
+                        <li key={task.id}>
+                            <input type="checkbox" checked={task.isDone}/>
+                            <span>{task.title}</span>
+                        </li>
+                    )
+                })}
             </ul>
             <div>
                 <button>All</button>
                 <button>Active</button>
                 <button>Completed</button>
             </div>
+            <div>{date}</div>
         </div>
     )
 }
