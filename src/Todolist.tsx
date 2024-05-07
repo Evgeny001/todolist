@@ -14,6 +14,9 @@ export const Todolist = (props: PropsType) => {
                 <input/>
                 <button>+</button>
             </div>
+            {tasks.length === 0 ? (
+                <p>task list is empty</p>
+            ) : (
             <ul>
                 {tasks.map(task => {
                     return (
@@ -24,6 +27,7 @@ export const Todolist = (props: PropsType) => {
                     )
                 })}
             </ul>
+            ) }
             <div>
                 <button>All</button>
                 <button>Active</button>
