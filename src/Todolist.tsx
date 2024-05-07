@@ -1,5 +1,6 @@
 import {FilterValuesType, TaskType} from "./App";
 import {Button} from "./Button";
+import {useRef} from "react";
 
 type PropsType = {
     title: string
@@ -7,16 +8,22 @@ type PropsType = {
     date?: string
     removeTask: (taskId: string) => void
     changeFilter: (filter: FilterValuesType) => void
-    addTask: () => void
+    addTask: (title: string) => void
 }
 export const Todolist = (props: PropsType) => {
     const {title, tasks, date, removeTask, changeFilter, addTask} = props
+    const inputRef = useRef<HTMLInputElement>(null)
     return (
         <div>
             <h3>{title}</h3>
             <div>
-                <input/>
-               <Button title={'+'} onClick={addTask}/>
+                <input ref={inputRef}/>
+               <Button title={'+'}
+                       onClick={()=>{
+                   if(inputRef.current){
+                       addTask(inputRef.current.value)
+                       inputRef.current.value = ''
+               }}}/>
             </div>
             <ul>
                 {tasks.map(task => {

@@ -34,10 +34,10 @@ function App() {
     const changeFilter = (filter: FilterValuesType) => {
         setFilter(filter)
     }
-    const addTask = () => {
+    const addTask = (title: string) => {
         const newTask: TaskType = {
             id: v1(),
-            title: 'new task',
+            title: title,
             isDone: false,
         }
         setTasks([newTask,...tasks])
