@@ -7,14 +7,15 @@ type PropsType = {
     title: string
     tasks: TaskType[]
     date?: string
+    todolistId: string
     removeTask: (taskId: string) => void
-    changeFilter: (filter: FilterValuesType) => void
+    changeFilter: (filter: FilterValuesType, todolistId: string) => void
     addTask: (title: string) => void
     changeTaskStatus: (taskId: string, taskStatus: boolean) => void
     filter: FilterValuesType
 }
 export const Todolist = (props: PropsType) => {
-    const {title, tasks, date, removeTask, changeFilter, addTask, changeTaskStatus, filter} = props
+    const {title, tasks, date, removeTask, changeFilter, addTask, changeTaskStatus, filter, todolistId} = props
     const [taskTitle, setTaskTitle] = useState<string>('')
     const [error, setError] = useState<string | null>(null)
     const addTaskHandler = () => {
@@ -35,7 +36,7 @@ export const Todolist = (props: PropsType) => {
         }
     }
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
-        changeFilter(filter)
+        changeFilter(filter, todolistId)
     }
     return (
         <div>
