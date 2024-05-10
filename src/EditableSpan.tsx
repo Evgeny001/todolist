@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import TextField from '@mui/material/TextField'
 
 type PropsType = {
     value: string
@@ -19,10 +20,13 @@ const changeItemHandler = (e: ChangeEvent<HTMLInputElement>) => {
 }
     return (
         <> {editMode ? (
-            <input value={title}
-                   onBlur={deactivateEditModeHandler}
-                   onChange={changeItemHandler}
-                   autoFocus
+            <TextField
+                variant={'outlined'}
+                value={title}
+                size={'small'}
+                onChange={changeItemHandler}
+                onBlur={deactivateEditModeHandler}
+                autoFocus
             />
         ): (
             <span onDoubleClick={activateEditModeHandler}>{value}</span>

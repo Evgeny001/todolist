@@ -1,8 +1,16 @@
 import './App.css';
-import {Todolist} from "./Todolist";
-import {useState} from "react";
+import {Todolist} from "./Todolist"
+import {useState} from "react"
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Unstable_Grid2'
+import Paper from '@mui/material/Paper'
 import {v1} from "uuid";
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "./AddItemForm"
 export type TaskType = {
     id: string
     title: string
@@ -78,7 +86,19 @@ function App() {
     }
     return (
         <div className="App">
-            <AddItemForm addItem={addTodolist}/>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton color="inherit">
+                        <MenuIcon />
+                    </IconButton>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container>
+                    <AddItemForm addItem={addTodolist} />
+                </Grid>
+                <Grid container spacing={4}>
             {todolists.map(tl => {
                 const allTodolistTasks = tasks[tl.id]
                 let tasksForTodolist = allTodolistTasks
@@ -89,6 +109,8 @@ function App() {
                     tasksForTodolist = allTodolistTasks.filter(task => task.isDone)
                 }
                 return(
+                    <Grid>
+                        <Paper>
                     <Todolist key={tl.id}
                               todolistId={tl.id}
                               title={tl.title}
@@ -102,8 +124,12 @@ function App() {
                               updateTask={updateTask}
                               updateTodolist={updateTodolist}
                     />
+                        </Paper>
+                    </Grid>
                 )
             })}
+                </Grid>
+            </Container>
         </div>
     );
 }
