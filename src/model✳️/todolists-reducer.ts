@@ -11,6 +11,7 @@ export type AddTodolistActionType = {
     type: 'ADD-TODOLIST'
     payload: {
         title: string
+        id: string
     }
 }
 export type ChangeTodolistTitleActionType = {
@@ -46,9 +47,9 @@ switch (action.type){
     }
     case 'ADD-TODOLIST': {
         const newTodolist: TodolistType = {
-            title: action.payload.title, id: v1(), filter: 'all'
+            title: action.payload.title, id: action.payload.id, filter: 'all'
         }
-        return [...initialState, newTodolist]
+        return [newTodolist,...initialState]
     }
     case 'CHANGE-TODOLIST-TITLE': {
         return state.map(tl=> tl.id === action.payload.id ? {...tl, title: 'New Todolist' } : tl)
@@ -64,7 +65,7 @@ export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType =
     return {type: "REMOVE-TODOLIST", payload: {id: todolistId}} as const
 }
 export const addTodolistAC = (title: string): AddTodolistActionType => {
-    return {type: "ADD-TODOLIST", payload: {title}} as const
+    return {type: "ADD-TODOLIST", payload: {title, id: v1()}} as const
 }
 export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
     return {type: 'CHANGE-TODOLIST-TITLE', payload: {title, id: todolistId}} as const
