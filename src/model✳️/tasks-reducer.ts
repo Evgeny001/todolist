@@ -1,6 +1,7 @@
 import {TasksStateType, TaskType} from "../App";
 import {v1} from "uuid";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
+import {DispatchWithoutAction, ReducerStateWithoutAction, ReducerWithoutAction} from "react";
 type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
     payload: {
@@ -51,17 +52,17 @@ export const tasksReducer = (state: TasksStateType, action: ActionType) => {
            return {...state, [action.payload.todoListId]: [newTask,...state[action.payload.todoListId]]}
        }
        case 'CHANGE-TASK': {
-           return {...state, [action.payload.todoListId]: state[action.payload.todoListId].map(t=>t.id? {...t, isDone: action.payload.isDone} : t)}
+           return {...state, [action.payload.todoListId]: state[action.payload.todoListId].map(t=>t.id === action.payload.taskId? {...t, isDone: action.payload.isDone} : t)}
        }
        case 'CHANGE-TITLE': {
-           return {...state, [action.payload.todoListId]: state[action.payload.todoListId].map(t=>t.id? {...t, title: action.payload.title} : t)}
+           return {...state, [action.payload.todoListId]: state[action.payload.todoListId].map(t=>t.id === action.payload.taskId? {...t, title: action.payload.title} : t)}
        }
        case 'REMOVE-TODOLIST': {
            delete state[action.payload.id]
            return state
        }
        case 'ADD-TODOLIST': {
-           return {...state, [action.payload.id]: []}
+           return {...state, [action.payload.id]: []};
        }
        default : {
            return state

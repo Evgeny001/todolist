@@ -49,10 +49,10 @@ switch (action.type){
         const newTodolist: TodolistType = {
             title: action.payload.title, id: action.payload.id, filter: 'all'
         }
-        return [newTodolist,...initialState]
+        return [newTodolist,...state]
     }
     case 'CHANGE-TODOLIST-TITLE': {
-        return state.map(tl=> tl.id === action.payload.id ? {...tl, title: 'New Todolist' } : tl)
+        return state.map(tl=> tl.id === action.payload.id ? {...tl, title: action.payload.title } : tl)
     }
     case 'CHANGE-TODOLIST-FILTER' : {
         return state.map(tl=> tl.id === action.payload.id ? {...tl, filter: action.payload.filter} : tl)
