@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {AppWithReducers} from "./AppWithReducers";
+import {AppWithRedux} from "./AppWithRedux";
+import {Provider} from "react-redux";
+import {store} from "./model✳️/store";
 
 
 const root = ReactDOM.createRoot(
@@ -9,7 +11,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppWithReducers />
+      <Provider store={store}>
+          <AppWithRedux />
+      </Provider>
   </React.StrictMode>
 );
 

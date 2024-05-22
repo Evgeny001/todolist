@@ -1,7 +1,7 @@
 import {TasksStateType, TaskType} from "../App";
 import {v1} from "uuid";
 import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
-import {DispatchWithoutAction, ReducerStateWithoutAction, ReducerWithoutAction} from "react";
+
 type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
     payload: {
@@ -40,7 +40,8 @@ type ActionType =
     | ChangeTaskTitleActionType
     | RemoveTodolistActionType
     | AddTodolistActionType
-export const tasksReducer = (state: TasksStateType, action: ActionType) => {
+const initialState: TasksStateType = {}
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionType) => {
    switch (action.type) {
        case 'REMOVE-TASK' : {
            return {...state, [action.payload.todoListId]: state[action.payload.todoListId].filter(t=>t.id !==action.payload.taskId)}
