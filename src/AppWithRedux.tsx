@@ -1,6 +1,5 @@
 import './App.css';
-import {Todolist} from "./Todolist"
-import {useReducer, useState} from "react"
+import { useState} from "react"
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -11,19 +10,14 @@ import Paper from '@mui/material/Paper'
 import CssBaseline from '@mui/material/CssBaseline'
 import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm"
 import {MenuButton} from "./MenuButton";
 import {
     addTodolistAC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
 } from "./model✳️/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./model✳️/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./model✳️/store";
+import {TodolistWithRedux} from "./TodolistWithRedux";
 export type TaskType = {
     id: string
     title: string
@@ -51,36 +45,14 @@ export const AppWithRedux = () => {
     })
 
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
-    const removeTask = (taskId: string, todolistId: string) => {
-        dispatch(removeTaskAC(todolistId, taskId))
-    }
 
-    const changeFilter = (filter: FilterValuesType, todolistId: string) => {
-        dispatch(changeTodolistFilterAC(todolistId, filter))
-    }
-    const addTask = (title: string, todolistId: string) => {
-        dispatch(addTaskAC(todolistId, title))
-    }
-    const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
-        dispatch(changeTaskStatusAC(todolistId, taskId, taskStatus))
-    }
-    const removeTodolist = (todolistId: string) => {
-        dispatch(removeTodolistAC(todolistId))
-    }
     const addTodolist = (title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
     }
-    const updateTask = (todolistId: string, taskId: string, title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, title))
-    }
-    const updateTodolist = (todolistId: string, title: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
-    }
     const changeModeHandler = () => {
-        setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
     }
     debugger
     return (
@@ -105,30 +77,10 @@ export const AppWithRedux = () => {
                 </Grid>
                 <Grid container spacing={4}>
             {todolists.map(tl => {
-                const allTodolistTasks = tasks[tl.id]
-                let tasksForTodolist = allTodolistTasks
-                if (tl.filter === 'active') {
-                    tasksForTodolist = allTodolistTasks.filter(task => !task.isDone)
-                }
-                if (tl.filter === 'completed') {
-                    tasksForTodolist = allTodolistTasks.filter(task => task.isDone)
-                }
                 return(
-                    <Grid>
+                    <Grid key={tl.id}>
                         <Paper sx={{ p: '0 20px 20px 20px' }}>
-                    <Todolist key={tl.id}
-                              todolistId={tl.id}
-                              title={tl.title}
-                              tasks={tasksForTodolist}
-                              removeTask={removeTask}
-                              changeFilter={changeFilter}
-                              addTask={addTask}
-                              changeTaskStatus={changeTaskStatus}
-                              filter={tl.filter}
-                              removeTodolist={removeTodolist}
-                              updateTask={updateTask}
-                              updateTodolist={updateTodolist}
-                    />
+                    <TodolistWithRedux todolist={tl}/>
                         </Paper>
                     </Grid>
                 )
