@@ -8,6 +8,7 @@ type PropsType = {
 }
 
 export const AddItemForm = ({ addItem }: PropsType) => {
+    console.log('AddItemForm called')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -25,7 +26,9 @@ export const AddItemForm = ({ addItem }: PropsType) => {
     }
 
     const addItemOnKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if(error !== null){
+            setError(null)
+        }
         if (event.key === 'Enter') {
             addItemHandler()
         }

@@ -80,7 +80,6 @@ export const AppWithRedux = () => {
     const changeModeHandler = () => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light')
     }
-    debugger
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
