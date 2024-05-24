@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import {FilterValuesType, TaskType} from "./App"
-import {ChangeEvent} from "react"
+import {ChangeEvent, useCallback} from "react"
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
@@ -34,9 +34,9 @@ export const Todolist = (props: PropsType) => {
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
     }
-    const addTaskCallback = (taskTitle: string) => {
+    const addTaskCallback = useCallback((taskTitle: string) => {
         addTask(taskTitle, todolistId)
-    }
+    }, [])
     const updateTodolistHandler = (title: string) => {
         updateTodolist(todolistId, title)
     }

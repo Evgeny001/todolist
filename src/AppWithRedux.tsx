@@ -1,6 +1,6 @@
 import './App.css';
 import {Todolist} from "./Todolist"
-import { useState} from "react"
+import {useCallback, useState} from "react"
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -67,10 +67,10 @@ export const AppWithRedux = () => {
     const removeTodolist = (todolistId: string) => {
         dispatch(removeTodolistAC(todolistId))
     }
-    const addTodolist = (title: string) => {
+    const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
-    }
+    }, [])
     const updateTask = (todolistId: string, taskId: string, title: string) => {
         dispatch(changeTaskTitleAC(todolistId, taskId, title))
     }
