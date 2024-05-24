@@ -29,15 +29,15 @@ export const Todolist = React.memo( (props: PropsType) => {
     console.log("Todolist called")
     const {title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter, todolistId, removeTodolist, updateTask, updateTodolist} = props
 
-    const changeFilterTasksHandler = (filter: FilterValuesType) => {
+    const changeFilterTasksHandler = useCallback((filter: FilterValuesType) => {
         changeFilter(filter, todolistId)
-    }
+    }, [filter,todolistId])
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
     }
     const addTaskCallback = useCallback((taskTitle: string) => {
         addTask(taskTitle, todolistId)
-    }, [])
+    }, [addTask, todolistId])
     const updateTodolistHandler = (title: string) => {
         updateTodolist(todolistId, title)
     }
