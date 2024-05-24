@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
 import {FilterValuesType, TaskType} from "./App"
-import {ChangeEvent, useCallback} from "react"
+import React, {ChangeEvent, useCallback} from "react"
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
@@ -25,7 +25,8 @@ type PropsType = {
     updateTask:(todolistId: string, taskId: string, title: string) => void
     updateTodolist: (todolistId: string, title: string) => void
 }
-export const Todolist = (props: PropsType) => {
+export const Todolist = React.memo( (props: PropsType) => {
+    console.log("Todolist called")
     const {title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter, todolistId, removeTodolist, updateTask, updateTodolist} = props
 
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
@@ -107,3 +108,4 @@ export const Todolist = (props: PropsType) => {
         </div>
     )
 }
+)

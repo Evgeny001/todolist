@@ -51,32 +51,32 @@ export const AppWithRedux = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
-    const removeTask = (taskId: string, todolistId: string) => {
-        dispatch(removeTaskAC(todolistId, taskId))
-    }
 
-    const changeFilter = (filter: FilterValuesType, todolistId: string) => {
+    const removeTask = useCallback((taskId: string, todolistId: string) => {
+        dispatch(removeTaskAC(todolistId, taskId))
+    },[])
+    const changeFilter = useCallback((filter: FilterValuesType, todolistId: string) => {
         dispatch(changeTodolistFilterAC(todolistId, filter))
-    }
-    const addTask = (title: string, todolistId: string) => {
+    },[])
+    const addTask = useCallback((title: string, todolistId: string) => {
         dispatch(addTaskAC(todolistId, title))
-    }
-    const changeTaskStatus = (taskId: string, taskStatus: boolean, todolistId: string) => {
+    },[])
+    const changeTaskStatus = useCallback((taskId: string, taskStatus: boolean, todolistId: string) => {
         dispatch(changeTaskStatusAC(todolistId, taskId, taskStatus))
-    }
-    const removeTodolist = (todolistId: string) => {
+    },[])
+    const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId))
-    }
+    },[])
     const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
     }, [])
-    const updateTask = (todolistId: string, taskId: string, title: string) => {
+    const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
         dispatch(changeTaskTitleAC(todolistId, taskId, title))
-    }
-    const updateTodolist = (todolistId: string, title: string) => {
+    },[])
+    const updateTodolist = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleAC(todolistId, title))
-    }
+    },[])
     const changeModeHandler = () => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light')
     }
