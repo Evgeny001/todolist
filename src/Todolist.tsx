@@ -9,6 +9,7 @@ import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx} from "./Todolist.styles";
 import {TaskWithRedux} from "./TaskWithRedux";
+import {ButtonMemo} from "./ButtonMemo";
 
 type PropsType = {
     title: string
@@ -27,10 +28,15 @@ type PropsType = {
 export const Todolist = React.memo( (props: PropsType) => {
     console.log("Todolist called")
     const {title, tasks, changeFilter, addTask, filter, todolistId, removeTodolist, updateTodolist} = props
-
-    const changeFilterTasksHandler = useCallback((filter: FilterValuesType) => {
-        changeFilter(filter, todolistId)
-    }, [filter,todolistId])
+    const onAllClickHandler = useCallback(()=>{
+    changeFilter('all', todolistId)
+    }, [todolistId])
+    const onActiveClickHandler = useCallback(()=>{
+            changeFilter('active', todolistId)
+        }, [todolistId])
+    const onCompletedClickHandler = useCallback(()=>{
+            changeFilter('completed', todolistId)
+        }, [todolistId])
     const removeTodolistHandler = () => {
         removeTodolist(todolistId)
     }
@@ -68,27 +74,27 @@ export const Todolist = React.memo( (props: PropsType) => {
             </List>
             <Box sx={filterButtonsContainerSx}>
                 <div>
-                    <Button
+                    <ButtonMemo
                         variant={filter === 'all' ? 'outlined' : 'text'}
                         color={'inherit'}
-                        onClick={() => changeFilterTasksHandler('all')}
+                        onClick={onAllClickHandler}
                     >
                         All
-                    </Button>
-                    <Button
+                    </ButtonMemo>
+                    <ButtonMemo
                         variant={filter === 'active' ? 'outlined' : 'text'}
                         color={'primary'}
-                        onClick={() => changeFilterTasksHandler('active')}
+                        onClick={onActiveClickHandler}
                     >
                         Active
-                    </Button>
-                    <Button
+                    </ButtonMemo>
+                    <ButtonMemo
                         variant={filter === 'completed' ? 'outlined' : 'text'}
                         color={'secondary'}
-                        onClick={() => changeFilterTasksHandler('completed')}
+                        onClick={onCompletedClickHandler}
                     >
                         Completed
-                    </Button>
+                    </ButtonMemo>
                 </div>
             </Box>
         </div>
