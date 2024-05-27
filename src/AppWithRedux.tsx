@@ -54,29 +54,29 @@ export const AppWithRedux = () => {
 
     const removeTask = useCallback((taskId: string, todolistId: string) => {
         dispatch(removeTaskAC(todolistId, taskId))
-    },[])
+    },[dispatch])
     const changeFilter = useCallback((filter: FilterValuesType, todolistId: string) => {
         dispatch(changeTodolistFilterAC(todolistId, filter))
-    },[])
+    },[dispatch])
     const addTask = useCallback((title: string, todolistId: string) => {
         dispatch(addTaskAC(todolistId, title))
-    },[])
+    },[dispatch])
     const changeTaskStatus = useCallback((taskId: string, taskStatus: boolean, todolistId: string) => {
         dispatch(changeTaskStatusAC(todolistId, taskId, taskStatus))
-    },[])
+    },[dispatch])
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId))
-    },[])
+    },[dispatch])
     const addTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
-    }, [])
+    }, [dispatch])
     const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
         dispatch(changeTaskTitleAC(todolistId, taskId, title))
-    },[])
+    },[dispatch])
     const updateTodolist = useCallback((todolistId: string, title: string) => {
         dispatch(changeTodolistTitleAC(todolistId, title))
-    },[])
+    },[dispatch])
     const changeModeHandler = () => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light')
     }

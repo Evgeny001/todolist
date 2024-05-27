@@ -2,14 +2,13 @@ import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
-import Checkbox from '@mui/material/Checkbox'
 import {FilterValuesType, TaskType} from "./App"
-import React, {ChangeEvent, useCallback} from "react"
+import React, {useCallback} from "react"
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
-import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
+import {filterButtonsContainerSx} from "./Todolist.styles";
+import {Task} from "./Task";
 
 type PropsType = {
     title: string
@@ -38,9 +37,9 @@ export const Todolist = React.memo( (props: PropsType) => {
     const addTaskCallback = useCallback((taskTitle: string) => {
         addTask(taskTitle, todolistId)
     }, [addTask, todolistId])
-    const updateTodolistHandler = (title: string) => {
+    const updateTodolistHandler = useCallback((title: string) => {
         updateTodolist(todolistId, title)
-    }
+    },[updateTodolist, todolistId])
     const allTodolistTasks = tasks
         let tasksForTodolist = allTodolistTasks
         if (filter === 'active') {
@@ -62,30 +61,11 @@ export const Todolist = React.memo( (props: PropsType) => {
                 <AddItemForm addItem={addTaskCallback}/>
             </div>
             <List>
-                {tasksForTodolist.map(task => {
-                    const removeTaskHandler = () => {
-                        removeTask(task.id, todolistId)
-                    }
-                    const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        const newStatusValue = e.currentTarget.checked
-                        changeTaskStatus(task.id, newStatusValue, todolistId)
-                    }
-                    const changeTaskTitleHandler = (title: string) => {
-                        updateTask(todolistId, task.id, title)
-                    }
-                    return (
-                        <ListItem key={task.id}
-                                  sx={getListItemSx(task.isDone)}
-                                  className={task.isDone ? 'is-done' : ''}>
-                            <div>
-                                <Checkbox checked={task.isDone} onChange={changeTaskStatusHandler}/>
-                                <EditableSpan value={task.title} onChange={changeTaskTitleHandler}/>
-                            </div>
-                            <IconButton onClick={removeTaskHandler}>
-                                <DeleteIcon/>
-                            </IconButton>
-                        </ListItem>
-                    )
+                {tasksForTodolist.map(t => {
+                    return <Task key={t.id} task={t} removeTask={removeTask}
+                          changeTaskStatus={changeTaskStatus}
+                          updateTask={updateTask}
+                          todolistId={todolistId}/>
                 })}
             </List>
             <Box sx={filterButtonsContainerSx}>
