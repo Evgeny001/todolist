@@ -8,7 +8,7 @@ import React, {useCallback} from "react"
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx} from "./Todolist.styles";
-import {Task} from "./Task";
+import {TaskWithRedux} from "./TaskWithRedux";
 
 type PropsType = {
     title: string
@@ -26,7 +26,7 @@ type PropsType = {
 }
 export const Todolist = React.memo( (props: PropsType) => {
     console.log("Todolist called")
-    const {title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter, todolistId, removeTodolist, updateTask, updateTodolist} = props
+    const {title, tasks, changeFilter, addTask, filter, todolistId, removeTodolist, updateTodolist} = props
 
     const changeFilterTasksHandler = useCallback((filter: FilterValuesType) => {
         changeFilter(filter, todolistId)
@@ -62,9 +62,7 @@ export const Todolist = React.memo( (props: PropsType) => {
             </div>
             <List>
                 {tasksForTodolist.map(t => {
-                    return <Task key={t.id} task={t} removeTask={removeTask}
-                          changeTaskStatus={changeTaskStatus}
-                          updateTask={updateTask}
+                    return <TaskWithRedux key={t.id} task={t}
                           todolistId={todolistId}/>
                 })}
             </List>
