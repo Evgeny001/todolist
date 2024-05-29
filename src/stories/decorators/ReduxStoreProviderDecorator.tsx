@@ -27,6 +27,7 @@ const initialGlobalState = {
     }
 };
 
+// @ts-ignore
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType);
 
 
