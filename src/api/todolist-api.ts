@@ -1,9 +1,8 @@
 import axios from "axios";
 import {
-    CreateTodolistResponse,
-    DeleteTodolistResponse,
-    Todolists,
-    UpdateTodolistResponse
+    TodolistResponse,
+    Todolists
+
 } from "../types/todolist.types";
 const settings = {
     withCredentials: true,
@@ -22,16 +21,16 @@ export const todolistAPI = {
     return promise
     },
     createTodolist(title: string) {
-        const promise = instance.post<CreateTodolistResponse>('todo-lists', {title}, settings)
+        const promise = instance.post<TodolistResponse<{item: Todolists}>>('todo-lists', {title}, settings)
         return promise
     },
     updateTodolistTitle(todolistId: string, title: string) {
-        const promise = instance.put<UpdateTodolistResponse>(`todo-lists/${todolistId}`,
+        const promise = instance.put<TodolistResponse>(`todo-lists/${todolistId}`,
             {title}, settings)
         return promise
     },
     deleteTodolist(todolistId: string){
-        const promise = instance.delete<DeleteTodolistResponse>(`todo-lists/${todolistId}`, settings)
+        const promise = instance.delete<TodolistResponse>(`todo-lists/${todolistId}`, settings)
     return promise
     }
 }

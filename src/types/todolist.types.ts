@@ -8,27 +8,11 @@ type FieldError = {
     error: string
     field: string
 }
-export type CreateTodolistResponse = {
+export type TodolistResponse<D = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: FieldError[]
-    data: {
-        item: Todolists
-    }
-}
-
-export type UpdateTodolistResponse = {
-    resultCode: number
-    messages: string[]
-    fieldsErrors: FieldError[]
-    data: {}
-}
-
-export type DeleteTodolistResponse = {
-    resultCode: number
-    messages: string[]
-    fieldsErrors: FieldError[]
-    data: {}
+    data: D
 }
 
 
