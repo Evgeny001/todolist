@@ -1,15 +1,20 @@
+import {TaskStatuses} from "./taskStatuses.types";
+import {TaskPriorities} from "./taskPriorities.types";
+
 export type Tasks = {
     description: string
     title: string
-    completed: boolean
-    status: number
-    priority: number
-    startDate: null
-    deadline: null
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
+    deadline: string
     id: string
     todoListId: string
     order: number
     addedDate: string
+}
+export type TasksState = {
+    [key: string]: Tasks[]
 }
 export type GetTasksResponse = {
     totalCount: number

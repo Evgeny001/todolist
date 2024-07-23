@@ -5,12 +5,13 @@ import Checkbox from "@mui/material/Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TaskType } from "./App";
+import {Tasks} from "./types/task.types";
+import {TaskStatuses} from "./types/taskStatuses.types";
 
 type PropsType = {
-    task: TaskType
+    task: Tasks
     removeTask: (taskId: string, todolistId: string) => void
-    changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
+    changeTaskStatus: (taskId: string, taskStatus: number, todolistId: string) => void
     updateTask:(todolistId: string, taskId: string, title: string) => void
     todolistId: string
 }
@@ -19,7 +20,7 @@ export const Task = React.memo( ({task, removeTask, changeTaskStatus, updateTask
         removeTask(task.id, todolistId)
     }, [removeTask, todolistId])
     const onChangeHandler  = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const newStatusValue = e.currentTarget.checked
+        const newStatusValue: TaskStatuses = e.currentTarget.checked === true ? TaskStatuses.Completed : TaskStatuses.New
         changeTaskStatus(task.id, newStatusValue, todolistId)
     }, [changeTaskStatus, todolistId])
     const onTitleChangeHandler   = useCallback((title: string) => {
@@ -27,10 +28,10 @@ export const Task = React.memo( ({task, removeTask, changeTaskStatus, updateTask
     }, [updateTask, todolistId])
     return (
         <ListItem key={task.id}
-                  sx={getListItemSx(task.isDone)}
-                  className={task.isDone ? 'is-done' : ''}>
+                  sx={getListItemSx(task.status === 2 ? true : false)}
+                  className={task.status === 2 ? 'is-done' : ''}>
             <div>
-                <Checkbox checked={task.isDone} onChange={onChangeHandler}/>
+                <Checkbox checked={task.status === 2 ? true : false} onChange={onChangeHandler}/>
                 <EditableSpan value={task.title} onChange={onTitleChangeHandler}/>
             </div>
             <IconButton onClick={onClickHandler}>

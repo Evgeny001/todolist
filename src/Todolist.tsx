@@ -3,25 +3,26 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
 import Box from '@mui/material/Box'
-import {FilterValuesType, TaskType} from "./App"
 import React, {useCallback} from "react"
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx} from "./Todolist.styles";
-import {TaskWithRedux} from "./TaskWithRedux";
 import {ButtonMemo} from "./ButtonMemo";
+import {Tasks} from "./types/task.types";
+import {FilterValues} from "./types/filterValues.type";
+import {Task} from "./Task";
 
 type PropsType = {
     title: string
-    tasks: TaskType[]
+    tasks: Tasks[]
     date?: string
     todolistId: string
     removeTask: (taskId: string, todolistId: string) => void
-    changeFilter: (filter: FilterValuesType, todolistId: string) => void
+    changeFilter: (filter: FilterValues, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
-    changeTaskStatus: (taskId: string, taskStatus: boolean, todolistId: string) => void
+    changeTaskStatus: (taskId: string, taskStatus: number, todolistId: string) => void
     removeTodolist: (todolistId: string) => void
-    filter: FilterValuesType
+    filter: FilterValues
     updateTask:(todolistId: string, taskId: string, title: string) => void
     updateTodolist: (todolistId: string, title: string) => void
 }
@@ -49,10 +50,10 @@ export const Todolist = React.memo( (props: PropsType) => {
     const allTodolistTasks = tasks
         let tasksForTodolist = allTodolistTasks
         if (filter === 'active') {
-            tasksForTodolist = allTodolistTasks.filter(task => !task.isDone)
+            tasksForTodolist = allTodolistTasks.filter(task => task.status === 0)
         }
         if (filter === 'completed') {
-            tasksForTodolist = allTodolistTasks.filter(task => task.isDone)
+            tasksForTodolist = allTodolistTasks.filter(task => task.status === 2 )
         }
     return (
         <div>
@@ -68,8 +69,8 @@ export const Todolist = React.memo( (props: PropsType) => {
             </div>
             <List>
                 {tasksForTodolist.map(t => {
-                    return <TaskWithRedux key={t.id} task={t}
-                          todolistId={todolistId}/>
+                    return <Task key={t.id} task={t}
+                          todolistId={todolistId} changeTaskStatus={props.changeTaskStatus} updateTask={props.updateTask} removeTask={props.removeTask}/>
                 })}
             </List>
             <Box sx={filterButtonsContainerSx}>
