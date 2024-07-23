@@ -1,8 +1,9 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
-import {Task} from '../Task';
 import {TaskStatuses} from "../types/taskStatuses.types";
 import {TaskPriorities} from "../types/taskPriorities.types";
+import {Task} from "../Task";
+
 
 // More on how to set up stories at:
 // https://storybook.js.org/docs/react/writing-stories/introduction#default-export
