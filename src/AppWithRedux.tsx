@@ -1,5 +1,5 @@
 import './App.css';
-import {useCallback, useState} from "react"
+import {useCallback, useEffect, useState} from "react"
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -12,15 +12,22 @@ import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {AddItemForm} from "./AddItemForm"
 import {MenuButton} from "./MenuButton";
-import {addTodolistAC,} from "./model✳️/todolists-reducer";
+import {addTodolistAC, setTodolistAC,} from "./model✳️/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./model✳️/store";
 import {TodolistDomain} from "./types/todolistDomain.types";
 import {TodolistWithRedux} from "./TodolistWithRedux";
+import {todolistAPI} from "./api/todolist-api";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 type ThemeMode = 'dark' | 'light'
 export const AppWithRedux = () => {
+    useEffect(()=>{
+       todolistAPI.getTodolists().then(res=>{
+           const todos = res.data
+           dispatch(setTodolistAC(todos))
+       })
+    },[])
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
