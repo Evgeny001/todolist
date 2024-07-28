@@ -5,18 +5,18 @@ import Checkbox from "@mui/material/Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./model✳️/tasks-reducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, removeTaskTC} from "./model✳️/tasks-reducer";
 import {TaskStatuses} from "./types/taskStatuses.types";
 import {Tasks} from "./types/task.types";
+import {useAppDispatch} from "./model✳️/store";
 
 type PropsType = {
     task: Tasks
     todolistId: string
 }
 export const TaskWithRedux = React.memo( ({task, todolistId}: PropsType) => {
-    const dispatch = useDispatch()
-    const onClickHandler = () => dispatch(removeTaskAC(todolistId, task.id))
+    const dispatch = useAppDispatch()
+    const onClickHandler = () => dispatch(removeTaskTC(todolistId, task.id))
     const onChangeHandler  = (e: ChangeEvent<HTMLInputElement>) => {
         const newStatusValue: TaskStatuses = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
         debugger
