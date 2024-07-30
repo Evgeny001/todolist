@@ -7,11 +7,11 @@ export const taskAPI = {
         return promise
     },
     createTask(todolistId: string, title: string){
-        const promise = instance.post<TasksResponse<Tasks>>(`/todo-lists/${todolistId}/tasks`, {title})
+        const promise = instance.post<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks`, {title})
         return promise
     },
     updateTaskTitle(todolistId: string, taskId: string, title: string){
-        const promise = instance.put<TasksResponse<Tasks>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+        const promise = instance.put<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
         return promise
     },
     deleteTask(todolistId: string, taskId: string,){

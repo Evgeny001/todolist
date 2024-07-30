@@ -5,7 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import {EditableSpan} from "./EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, removeTaskTC} from "./model✳️/tasks-reducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskTC} from "./model✳️/tasks-reducer";
 import {TaskStatuses} from "./types/taskStatuses.types";
 import {Tasks} from "./types/task.types";
 import {useAppDispatch} from "./model✳️/store";

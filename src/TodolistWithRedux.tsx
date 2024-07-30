@@ -8,7 +8,7 @@ import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx} from "./Todolist.styles";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./model✳️/store";
-import {addTaskAC, fetchTasksTC} from "./model✳️/tasks-reducer";
+import { addTaskTC, fetchTasksTC} from "./model✳️/tasks-reducer";
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./model✳️/todolists-reducer";
 import {FilterValues} from "./types/filterValues.type";
 import {Tasks} from "./types/task.types";
@@ -31,7 +31,7 @@ export const TodolistWithRedux = ({todolist}: PropsType) => {
         dispatch(removeTodolistAC(id))
     }
     const addTaskCallback = (taskTitle: string) => {
-        dispatch(addTaskAC(id, taskTitle))
+        dispatch(addTaskTC(id, taskTitle))
     }
     const updateTodolistHandler = (title: string) => {
         dispatch(changeTodolistTitleAC(id, title))

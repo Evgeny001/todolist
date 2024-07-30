@@ -1,5 +1,5 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
-import {TasksState} from "../types/task.types";
+import {Tasks, TasksState} from "../types/task.types";
 import {TaskStatuses} from "../types/taskStatuses.types";
 import {TaskPriorities} from "../types/taskPriorities.types";
 
@@ -49,8 +49,9 @@ test('correct task should be deleted from correct array', () => {
     })
 })
 test('correct task should be added to correct array', () => {
-
-    const action = addTaskAC( 'todolistId2', 'juce')
+    const task: Tasks = { id: "1", title: 'juce', status: TaskStatuses.New, todoListId: "todolistId2", description: '',
+            startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low }
+    const action = addTaskAC( task)
     const endState = tasksReducer (startState, action)
 
     expect(endState['todolistId1'].length).toBe(3)
