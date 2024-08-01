@@ -1,5 +1,5 @@
 import {instance} from "./axiosInstance";
-import {GetTasksResponse, Tasks, TasksResponse} from "../types/task.types";
+import {GetTasksResponse, Tasks, TasksResponse, UpdateTaskModel} from "../types/task.types";
 
 export const taskAPI = {
     getTasks(todolistId: string) {
@@ -10,8 +10,8 @@ export const taskAPI = {
         const promise = instance.post<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks`, {title})
         return promise
     },
-    updateTaskTitle(todolistId: string, taskId: string, title: string){
-        const promise = instance.put<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+    updateTask(todolistId: string, taskId: string, model: UpdateTaskModel){
+        const promise = instance.put<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
         return promise
     },
     deleteTask(todolistId: string, taskId: string,){
