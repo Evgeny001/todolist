@@ -9,12 +9,16 @@ import {filterButtonsContainerSx} from "./Todolist.styles";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./model✳️/store";
 import { addTaskTC, fetchTasksTC} from "./model✳️/tasks-reducer";
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./model✳️/todolists-reducer";
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+} from "./model✳️/todolists-reducer";
 import {FilterValues} from "./types/filterValues.type";
 import {Tasks} from "./types/task.types";
 import {TodolistDomain} from "./types/todolistDomain.types";
 import {TaskWithRedux} from "./TaskWithRedux";
 import {useEffect} from "react";
+import {removeTodolistsTC} from "./model✳️/todolists-reducer";
 
 type PropsType = {
     todolist: TodolistDomain
@@ -28,7 +32,7 @@ export const TodolistWithRedux = ({todolist}: PropsType) => {
         dispatch(changeTodolistFilterAC(id, filter));
     };
     const removeTodolistHandler = () => {
-        dispatch(removeTodolistAC(id))
+        dispatch(removeTodolistsTC(id))
     }
     const addTaskCallback = (taskTitle: string) => {
         dispatch(addTaskTC(id, taskTitle))

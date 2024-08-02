@@ -12,7 +12,7 @@ import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {AddItemForm} from "./AddItemForm"
 import {MenuButton} from "./MenuButton";
-import {addTodolistAC, fetchTodolistsThunk,} from "./model✳️/todolists-reducer";
+import { addTodolistTC, fetchTodolistsThunk,} from "./model✳️/todolists-reducer";
 import { useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./model✳️/store";
 import {TodolistDomain} from "./types/todolistDomain.types";
@@ -38,7 +38,7 @@ export const AppWithRedux = () => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomain>>(state => state.todolists)
     const dispatch = useAppDispatch()
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title)
+        const action = addTodolistTC(title)
         dispatch(action)
     }, [dispatch])
     const changeModeHandler = () => {
