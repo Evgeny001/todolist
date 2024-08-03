@@ -80,7 +80,7 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterValues)
 export const setTodolistAC = (todolists: Array<Todolists>): SetTodolistsActionType => {
     return {type: 'SET_TODOLIST', todolists}
 }
-export const fetchTodolistsThunk = (dispatch: Dispatch) => {
+export const fetchTodolistsTC = ()=> (dispatch: Dispatch) => {
     todolistAPI.getTodolists().then(res => {
         dispatch(setTodolistAC(res.data))
     })
@@ -92,5 +92,10 @@ export const removeTodolistsTC = (todolistId: string) => (dispatch: Dispatch) =>
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
     todolistAPI.createTodolist(title).then((res)=>{
         dispatch(addTodolistAC(res.data.data.item))
+    })
+}
+export const changeTodolistTitleTC = (todolistId: string,title: string) => (dispatch: Dispatch) => {
+    todolistAPI.updateTodolistTitle(todolistId,title).then(()=>{
+        dispatch(changeTodolistTitleAC(todolistId, title))
     })
 }

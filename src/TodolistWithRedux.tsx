@@ -10,8 +10,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./model✳️/store";
 import { addTaskTC, fetchTasksTC} from "./model✳️/tasks-reducer";
 import {
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    changeTodolistFilterAC, changeTodolistTitleTC,
 } from "./model✳️/todolists-reducer";
 import {FilterValues} from "./types/filterValues.type";
 import {Tasks} from "./types/task.types";
@@ -38,7 +37,7 @@ export const TodolistWithRedux = ({todolist}: PropsType) => {
         dispatch(addTaskTC(id, taskTitle))
     }
     const updateTodolistHandler = (title: string) => {
-        dispatch(changeTodolistTitleAC(id, title))
+        dispatch(changeTodolistTitleTC(id, title))
     }
     if (filter === 'active') {
         tasks = tasks.filter(task => !task.status)

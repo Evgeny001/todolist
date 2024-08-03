@@ -12,7 +12,7 @@ import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {AddItemForm} from "./AddItemForm"
 import {MenuButton} from "./MenuButton";
-import { addTodolistTC, fetchTodolistsThunk,} from "./model✳️/todolists-reducer";
+import {addTodolistTC, fetchTodolistsTC,} from "./model✳️/todolists-reducer";
 import { useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./model✳️/store";
 import {TodolistDomain} from "./types/todolistDomain.types";
@@ -22,7 +22,7 @@ export type FilterValuesType = 'all' | 'active' | 'completed'
 type ThemeMode = 'dark' | 'light'
 export const AppWithRedux = () => {
         useEffect(() => {
-            dispatch(fetchTodolistsThunk)
+            dispatch(fetchTodolistsTC())
         }, [])
 
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
