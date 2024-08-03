@@ -27,3 +27,19 @@ export type TasksResponse<D = {}> = {
     resultCode: number
     messages: string[]
 }
+export type UpdateTaskModel = {
+    title: string
+    description: string
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
+    deadline: string
+}
+export type UpdateDomainTaskModel = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+}

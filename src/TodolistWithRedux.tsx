@@ -6,14 +6,18 @@ import Box from '@mui/material/Box'
 import {AddItemForm} from "./AddItemForm"
 import {EditableSpan} from "./EditableSpan"
 import {filterButtonsContainerSx} from "./Todolist.styles";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./model✳️/store";
-import {addTaskAC} from "./model✳️/tasks-reducer";
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./model✳️/todolists-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "./model✳️/store";
+import { addTaskTC, fetchTasksTC} from "./model✳️/tasks-reducer";
+import {
+    changeTodolistFilterAC, changeTodolistTitleTC,
+} from "./model✳️/todolists-reducer";
 import {FilterValues} from "./types/filterValues.type";
 import {Tasks} from "./types/task.types";
 import {TodolistDomain} from "./types/todolistDomain.types";
 import {TaskWithRedux} from "./TaskWithRedux";
+import {useEffect} from "react";
+import {removeTodolistsTC} from "./model✳️/todolists-reducer";
 
 type PropsType = {
     todolist: TodolistDomain
@@ -21,19 +25,19 @@ type PropsType = {
 export const TodolistWithRedux = ({todolist}: PropsType) => {
     const {id, title, filter} = todolist
     let tasks = useSelector<AppRootStateType, Array<Tasks>>(state => state.tasks[id])
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const changeFilterTasksHandler = (filter: FilterValues) => {
         dispatch(changeTodolistFilterAC(id, filter));
     };
     const removeTodolistHandler = () => {
-        dispatch(removeTodolistAC(id))
+        dispatch(removeTodolistsTC(id))
     }
     const addTaskCallback = (taskTitle: string) => {
-        dispatch(addTaskAC(id, taskTitle))
+        dispatch(addTaskTC(id, taskTitle))
     }
     const updateTodolistHandler = (title: string) => {
-        dispatch(changeTodolistTitleAC(id, title))
+        dispatch(changeTodolistTitleTC(id, title))
     }
     if (filter === 'active') {
         tasks = tasks.filter(task => !task.status)
@@ -41,6 +45,9 @@ export const TodolistWithRedux = ({todolist}: PropsType) => {
     if (filter === 'completed') {
         tasks = tasks.filter(task => task.status)
     }
+    useEffect(() => {
+        dispatch(fetchTasksTC(todolist.id))
+    }, []);
     debugger
     return (
         <div>

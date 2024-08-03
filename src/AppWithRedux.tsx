@@ -12,22 +12,19 @@ import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {AddItemForm} from "./AddItemForm"
 import {MenuButton} from "./MenuButton";
-import {addTodolistAC, setTodolistAC,} from "./model✳️/todolists-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./model✳️/store";
+import {addTodolistTC, fetchTodolistsTC,} from "./model✳️/todolists-reducer";
+import { useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "./model✳️/store";
 import {TodolistDomain} from "./types/todolistDomain.types";
 import {TodolistWithRedux} from "./TodolistWithRedux";
-import {todolistAPI} from "./api/todolist-api";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 type ThemeMode = 'dark' | 'light'
 export const AppWithRedux = () => {
-    useEffect(()=>{
-       todolistAPI.getTodolists().then(res=>{
-           const todos = res.data
-           dispatch(setTodolistAC(todos))
-       })
-    },[])
+        useEffect(() => {
+            dispatch(fetchTodolistsTC())
+        }, [])
+
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
@@ -39,9 +36,9 @@ export const AppWithRedux = () => {
     })
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomain>>(state => state.todolists)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title)
+        const action = addTodolistTC(title)
         dispatch(action)
     }, [dispatch])
     const changeModeHandler = () => {
