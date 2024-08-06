@@ -1,14 +1,14 @@
 import React, {ChangeEvent} from "react";
 import ListItem from "@mui/material/ListItem";
-import {getListItemSx} from "./Todolist.styles";
+import {getListItemSx} from "../../../Todolist.styles";
 import Checkbox from "@mui/material/Checkbox";
-import {EditableSpan} from "./EditableSpan";
+import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { removeTaskTC, updateTaskStatusTC} from "./model✳️/tasks-reducer";
-import {TaskStatuses} from "./types/taskStatuses.types";
-import {Tasks} from "./types/task.types";
-import {useAppDispatch} from "./model✳️/store";
+import { removeTaskTC, updateTaskStatusTC} from "../../tasks-reducer";
+import {TaskStatuses} from "../../../types/taskStatuses.types";
+import {Tasks} from "../../../types/task.types";
+import {useAppDispatch} from "../../../app/store";
 
 type PropsType = {
     task: Tasks

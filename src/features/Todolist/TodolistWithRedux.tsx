@@ -3,21 +3,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
 import Box from '@mui/material/Box'
-import {AddItemForm} from "./AddItemForm"
-import {EditableSpan} from "./EditableSpan"
-import {filterButtonsContainerSx} from "./Todolist.styles";
+import {AddItemForm} from "../../components/AddItemForm/AddItemForm"
+import {EditableSpan} from "../../components/EditableSpan/EditableSpan"
+import {filterButtonsContainerSx} from "../../Todolist.styles";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./model✳️/store";
-import { addTaskTC, fetchTasksTC} from "./model✳️/tasks-reducer";
+import {AppRootStateType, useAppDispatch} from "../../app/store";
+import { addTaskTC, fetchTasksTC} from "../tasks-reducer";
 import {
     changeTodolistFilterAC, changeTodolistTitleTC,
-} from "./model✳️/todolists-reducer";
-import {FilterValues} from "./types/filterValues.type";
-import {Tasks} from "./types/task.types";
-import {TodolistDomain} from "./types/todolistDomain.types";
-import {TaskWithRedux} from "./TaskWithRedux";
+} from "../todolists-reducer";
+import {FilterValues} from "../../types/filterValues.type";
+import {Tasks} from "../../types/task.types";
+import {TodolistDomain} from "../../types/todolistDomain.types";
+import {TaskWithRedux} from "./Task/TaskWithRedux";
 import {useEffect} from "react";
-import {removeTodolistsTC} from "./model✳️/todolists-reducer";
+import {removeTodolistsTC} from "../todolists-reducer";
 
 type PropsType = {
     todolist: TodolistDomain

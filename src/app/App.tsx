@@ -10,13 +10,13 @@ import Paper from '@mui/material/Paper'
 import CssBaseline from '@mui/material/CssBaseline'
 import Switch from '@mui/material/Switch'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import {AddItemForm} from "./AddItemForm"
-import {MenuButton} from "./MenuButton";
-import {addTodolistTC, fetchTodolistsTC,} from "./model✳️/todolists-reducer";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm"
+import {MenuButton} from "../components/MenuButton/MenuButton";
+import {addTodolistTC, fetchTodolistsTC,} from "../features/todolists-reducer";
 import { useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./model✳️/store";
-import {TodolistDomain} from "./types/todolistDomain.types";
-import {TodolistWithRedux} from "./TodolistWithRedux";
+import {AppRootStateType, useAppDispatch} from "./store";
+import {TodolistDomain} from "../types/todolistDomain.types";
+import {TodolistWithRedux} from "../features/Todolist/TodolistWithRedux";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 type ThemeMode = 'dark' | 'light'
