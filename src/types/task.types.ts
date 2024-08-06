@@ -22,11 +22,6 @@ export type GetTasksResponse = {
     items: Tasks[]
 }
 
-export type TasksResponse<D = {}> = {
-    data: D
-    resultCode: number
-    messages: string[]
-}
 export type UpdateTaskModel = {
     title: string
     description: string
