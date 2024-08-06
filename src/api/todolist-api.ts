@@ -1,25 +1,19 @@
-import {
-    TodolistResponse,
-    Todolists
-} from "../types/todolist.types";
+import {Todolists} from "../types/todolist.types";
 import {instance} from "./axiosInstance";
+import {Response} from "../types/response.type";
+import {AxiosResponse} from "axios";
 
 export const todolistAPI = {
     getTodolists() {
-        const promise = instance.get<Todolists[]>('todo-lists')
-    return promise
+        return instance.get<Todolists[]>('todo-lists')
     },
     createTodolist(title: string) {
-        const promise = instance.post<TodolistResponse<{item: Todolists}>>('todo-lists', {title})
-        return promise
+         return instance.post<Response<{item: Todolists}>, AxiosResponse<Response<{ item: Todolists }>>,{ title: string }>('todo-lists', {title})
     },
     updateTodolistTitle(todolistId: string, title: string) {
-        const promise = instance.put<TodolistResponse>(`todo-lists/${todolistId}`,
-            {title})
-        return promise
+        return instance.put<Response, AxiosResponse<Response>, {title: string}>(`todo-lists/${todolistId}`, {title})
     },
     deleteTodolist(todolistId: string){
-        const promise = instance.delete<TodolistResponse>(`todo-lists/${todolistId}`)
-    return promise
+        return instance.delete<Response>(`todo-lists/${todolistId}`)
     }
 }
