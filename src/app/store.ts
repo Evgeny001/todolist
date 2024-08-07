@@ -1,7 +1,7 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore } from "redux";
 import thunk, { ThunkDispatch } from "redux-thunk";
-import { tasksReducer } from "./tasks-reducer";
-import { todolistsReducer } from "./todolists-reducer";
+import { tasksReducer } from "../features/tasks-reducer";
+import { todolistsReducer } from "../features/todolists-reducer";
 import { useDispatch } from "react-redux";
 
 // объединяя reducer-ы с помощью combineReducers,

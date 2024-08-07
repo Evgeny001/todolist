@@ -2,7 +2,7 @@ import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType}
 import {Tasks, TasksState, UpdateDomainTaskModel} from "../types/task.types";
 import {Dispatch} from "redux";
 import {taskAPI} from "../api/task-api";
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../app/store";
 
 type RemoveTaskActionType = {
     type: 'REMOVE-TASK'

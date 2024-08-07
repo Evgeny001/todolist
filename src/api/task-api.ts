@@ -1,22 +1,21 @@
 import {instance} from "./axiosInstance";
-import {GetTasksResponse, Tasks, TasksResponse, UpdateTaskModel} from "../types/task.types";
+import {GetTasksResponse, Tasks, UpdateTaskModel} from "../types/task.types";
+import {Response} from "../types/response.type";
+import {AxiosResponse} from "axios";
 
 export const taskAPI = {
     getTasks(todolistId: string) {
-        const promise = instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
-        return promise
+        return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, title: string){
-        const promise = instance.post<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks`, {title})
-        return promise
+        return instance.post<Response<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModel){
-        const promise = instance.put<TasksResponse<{item: Tasks}>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
-        return promise
+        return instance.put<Response<{item: Tasks}>, AxiosResponse<Response<{item: Tasks}>>, {title: string}>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+
     },
     deleteTask(todolistId: string, taskId: string,){
-        const promise = instance.delete<TasksResponse>(`/todo-lists/${todolistId}/tasks/${taskId}`)
-        return promise
+        return instance.delete<Response>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     }
 }
 
